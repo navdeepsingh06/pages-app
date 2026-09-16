@@ -1,41 +1,54 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DMS Document Upload</title>
-    <!-- Fluent UI Core Styles for native Outlook styling -->
-    <link rel="stylesheet" href="taskpane.css" />
-    <!-- Office.js library -->
-    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
-</head>
-<body class="ms-font-m ms-welcome">
-    <header class="dms-header">
-        <h1 class="ms-font-xl">DMS Connect</h1>
-    </header>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Send to ClaimCenter</title>
+    <link rel="stylesheet" href="/taskpane.css" />
+    <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+    <script src="/taskpane.js"></script>
+  </head>
+  <body>
+    <main class="task-pane">
+      <header class="page-header">
+        <p class="eyebrow">ClaimCenter</p>
+        <h1>Send to ClaimCenter</h1>
+        <p class="intro">Attach the selected message to an existing claim.</p>
+      </header>
 
-    <main class="dms-container">
-        <div id="emailInfo" class="email-card">
-            <p class="section-title">Selected Email</p>
-            <h2 id="emailSubject" class="ms-font-m font-bold">Loading email subject...</h2>
-        </div>
+      <p id="load-status" class="status" role="status">Loading selected email...</p>
 
-        <div class="form-group">
-            <label for="folderSelect" class="ms-font-s">Target Folder</label>
-            <select id="folderSelect" class="dms-select">
-                <option value="invoices">Invoices & Finance</option>
-                <option value="legal">Legal Contracts</option>
-                <option value="general">General Archive</option>
-            </select>
-        </div>
+      <section class="email-summary" aria-labelledby="email-summary-heading">
+        <h2 id="email-summary-heading">Email summary</h2>
+        <dl>
+          <div>
+            <dt>Subject</dt>
+            <dd id="email-subject">Not available</dd>
+          </div>
+          <div>
+            <dt>Sender</dt>
+            <dd id="email-sender">Not available</dd>
+          </div>
+          <div>
+            <dt>Received</dt>
+            <dd id="email-received-date">Not available</dd>
+          </div>
+        </dl>
+      </section>
 
-        <button id="uploadButton" class="dms-btn dms-btn-primary">
-            <span class="ms-font-m">Upload Email to DMS</span>
-        </button>
+      <form id="claim-form" novalidate>
+        <label for="claim-number">Claim Number</label>
+        <input id="claim-number" name="claimNumber" type="text" autocomplete="off" required aria-describedby="claim-number-error" />
+        <p id="claim-number-error" class="field-error" role="alert"></p>
+        <button id="submit-button" type="submit" disabled>Send to ClaimCenter</button>
+      </form>
 
-        <div id="statusMessage" class="status-msg ms-font-s hidden"></div>
+      <section id="result" class="result" hidden aria-live="polite">
+        <h2>Ready to send</h2>
+        <p id="result-message"></p>
+        <pre id="payload-output"></pre>
+      </section>
     </main>
-
-    <script src="taskpane.js"></script>
-</body>
+  </body>
 </html>
