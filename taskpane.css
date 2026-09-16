@@ -1,0 +1,126 @@
+/* Reset and Base Styles */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f3f2f1; /* Light gray matching Office */
+    color: #323130;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.dms-header {
+    background-color: #0078d4; /* Default Outlook Blue */
+    color: #ffffff;
+    padding: 15px 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.dms-header h1 {
+    margin: 0;
+    font-weight: 600;
+}
+
+.dms-container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Card Styling */
+.email-card {
+    background: #ffffff;
+    padding: 12px;
+    border-radius: 4px;
+    border: 1px solid #edebe9;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.section-title {
+    margin: 0 0 4px 0;
+    font-size: 11px;
+    color: #605e5c;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.font-bold {
+    margin: 0;
+    font-weight: 600;
+}
+
+/* Form Layout */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #323130;
+}
+
+.dms-select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #a19f9d;
+    border-radius: 2px;
+    background-color: #ffffff;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.dms-select:focus {
+    border-color: #0078d4;
+}
+
+/* Button UI */
+.dms-btn {
+    width: 100%;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 2px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.dms-btn-primary {
+    background-color: #0078d4;
+    color: #ffffff;
+}
+
+.dms-btn-primary:hover {
+    background-color: #106ebe;
+}
+
+.dms-btn-primary:active {
+    background-color: #005a9e;
+}
+
+/* Status Notifications */
+.status-msg {
+    padding: 10px;
+    border-radius: 2px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.status-msg.success {
+    background-color: #dff6dd;
+    color: #107c41;
+    border: 1px solid #107c41;
+}
+
+.status-msg.error {
+    background-color: #fde7e9;
+    color: #a80000;
+    border: 1px solid #a80000;
+}
+
+.hidden {
+    display: none;
+}
