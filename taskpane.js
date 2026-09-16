@@ -1,2 +1,48 @@
-!function(){var e={60947:function(e,t,n){"use strict";e.exports=n.p+"04a86f8559f6e5c1e989.js"}},t={};function n(r){var o=t[r];if(void 0!==o)return o.exports;var i=t[r]={exports:{}};return e[r](i,i.exports,n),i.exports}n.g=function(){if("object"==typeof globalThis)return globalThis;try{return this||new Function("return this")()}catch(e){if("object"==typeof window)return window}}(),function(){var e;n.g.importScripts&&(e=n.g.location+"");var t=n.g.document;if(!e&&t&&(t.currentScript&&"SCRIPT"===t.currentScript.tagName.toUpperCase()&&(e=t.currentScript.src),!e)){var r=t.getElementsByTagName("script");if(r.length)for(var o=r.length-1;o>-1&&(!e||!/^https?:/.test(e));)e=r[o--].src}if(!e)throw new Error("Automatic publicPath is not supported in this browser");e=e.replace(/^blob:|[?#].*$/g,"").replace(/\/[^/]+$/,"/"),n.p=e}(),n.b="undefined"!=typeof document&&document.baseURI||self.location.href,Office.onReady(function(e){e.host===Office.HostType.Outlook&&function(){var e=Office.context.mailbox.item;if(e){if(e.from){var t=e.from.displayName,n=e.from.emailAddress;document.getElementById("sender").innerText="".concat(t," (").concat(n,")")}else document.getElementById("sender").innerText="No sender information available.";if(e.subject?document.getElementById("subject").innerText=e.subject:document.getElementById("subject").innerText="(No Subject)",e.dateTimeCreated){var r=new Date(e.dateTimeCreated);document.getElementById("dateReceived").innerText=r.toLocaleString()}else document.getElementById("dateReceived").innerText="No date available."}else document.getElementById("sender").innerText="No message selected.",document.getElementById("subject").innerText="",document.getElementById("dateReceived").innerText=""}()}),function(){"use strict";new URL(n(60947),n.b)}()}();
-//# sourceMappingURL=taskpane.js.map
+Office.onReady((info) => {
+    if (info.host === Office.HostType.Outlook) {
+        document.getElementById("uploadButton").onclick = uploadEmailToDMS;
+    }
+});
+
+function uploadEmailToDMS() {
+    const item = Office.context.mailbox.item;
+    
+    // Get the REST ID or EWS ID to fetch the full MIME content on your backend,
+    // or use getFileAsync for attachments/eml conversion.
+    item.getStartupDataAsync ? console.log("Initializing upload...") : null;
+
+    // Example using mailbox REST API token to get item content
+    Office.context.mailbox.getCallbackTokenAsync({ isRest: true }, (asyncResult) => {
+        if (asyncResult.status === Office.AsyncResultStatus.Succeeded) {
+            const accessToken = asyncResult.value;
+            const itemId = item.itemId;
+            const restUrl = Office.context.mailbox.restUrl;
+            
+            // Construct the endpoint to fetch the MIME/EML message
+            const getMessageUrl = `${restUrl}/v2.0/me/messages/${itemId}/$value`;
+
+            // Send ID and token to your backend service which handles the DMS upload
+            sendToBackendDMS(getMessageUrl, accessToken);
+        } else {
+            console.error("Failed to get token: " + asyncResult.error.message);
+        }
+    });
+}
+
+function sendToBackendDMS(url, token) {
+    fetch('https://your-dms-backend-api.com', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ messageUrl: url })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Successfully uploaded to DMS", data);
+    })
+    .catch(error => {
+        console.error("Error uploading email:", error);
+    });
+}
