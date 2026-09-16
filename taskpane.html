@@ -1,1 +1,42 @@
-<!doctype html><html><head><meta charset="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=Edge"/><meta name="viewport" content="width=device-width,initial-scale=1"><title>Message Context Add-in</title><script src="https://microsoft.com"></script><style>body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;padding:15px;margin:0;color:#333;background-color:#f4f4f4}.container{background-color:#fff;padding:15px;border-radius:4px;box-shadow:0 2px 4px rgba(0,0,0,.1)}h2{font-size:18px;color:#0078d4;margin-top:0;margin-bottom:15px;border-bottom:2px solid #0078d4;padding-bottom:5px}.data-group{margin-bottom:12px}.label{font-weight:700;font-size:12px;color:#666;text-transform:uppercase}.value{font-size:14px;margin-top:2px;word-wrap:break-word}</style><script defer="defer" src="polyfill.js"></script><script defer="defer" src="taskpane.js"></script></head><body><div class="container"><h2>Message Details</h2><div class="data-group"><div class="label">Sender</div><div id="sender" class="value">Loading...</div></div><div class="data-group"><div class="label">Subject</div><div id="subject" class="value">Loading...</div></div><div class="data-group"><div class="label">Date Received</div><div id="dateReceived" class="value">Loading...</div></div></div><script src="04a86f8559f6e5c1e989.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DMS Document Upload</title>
+    <!-- Fluent UI Core Styles for native Outlook styling -->
+    <link rel="stylesheet" href="https://sharepointonline.com" />
+    <link rel="stylesheet" href="taskpane.css" />
+    <!-- Office.js library -->
+    <script type="text/javascript" src="https://microsoft.com"></script>
+</head>
+<body class="ms-font-m ms-welcome">
+    <header class="dms-header">
+        <h1 class="ms-font-xl">DMS Connect</h1>
+    </header>
+
+    <main class="dms-container">
+        <div id="emailInfo" class="email-card">
+            <p class="section-title">Selected Email</p>
+            <h2 id="emailSubject" class="ms-font-m font-bold">Loading email subject...</h2>
+        </div>
+
+        <div class="form-group">
+            <label for="folderSelect" class="ms-font-s">Target Folder</label>
+            <select id="folderSelect" class="dms-select">
+                <option value="invoices">Invoices & Finance</option>
+                <option value="legal">Legal Contracts</option>
+                <option value="general">General Archive</option>
+            </select>
+        </div>
+
+        <button id="uploadButton" class="dms-btn dms-btn-primary">
+            <span class="ms-font-m">Upload Email to DMS</span>
+        </button>
+
+        <div id="statusMessage" class="status-msg ms-font-s hidden"></div>
+    </main>
+
+    <script src="taskpane.js"></script>
+</body>
+</html>
